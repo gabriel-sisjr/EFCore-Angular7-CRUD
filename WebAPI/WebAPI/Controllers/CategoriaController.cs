@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ using WebAPI.Models;
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CategoriaController : ControllerBase
     {
@@ -41,6 +43,7 @@ namespace WebAPI.Controllers
 
             if (!resposta)
                 //return BadRequest(JsonConvert.SerializeObject(notificacao));
+                // throw new NotImplementedException(); // Retornar o erro aqui.
                 return false;
             else
                 return true;

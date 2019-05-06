@@ -21,6 +21,7 @@ namespace WebAPI.Database
          * Cada propriedade será uma classe a ser mapeada.
         */
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         /* 
          * Classe de Contexto configurada, vai no startup e configura o serviço que se comunicará com o BD.

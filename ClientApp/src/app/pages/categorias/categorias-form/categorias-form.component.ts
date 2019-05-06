@@ -66,7 +66,7 @@ export class CategoriasFormComponent implements OnInit, AfterContentChecked {
 
     this.categoriaService.inserir(this.categoria).subscribe(
       c => this.SucessoSolicitacao(),
-      () => this.RetornarErros()
+      (error) => this.RetornarErros(error)
       );
   }
 
@@ -111,8 +111,18 @@ export class CategoriasFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
-  private RetornarErros() {
+  private RetornarErros(error: any) {
+    toastr.error('Erro ao inserir a pessoa!');
 
+    this.formEnviado = false;
+
+    // Quando o recurso nao é processado com sucesso, retorna esse erro.
+    if (error.status === 422) {
+      // Retorna o corpo do erro para a variavel de checagem de erros.
+      this.erroServidor = JSON.parse(error._body).errors;
+    } else {
+      this.erroServidor = ['Falha ao comunicar com a API'];
+    }
   }
 
   private ErroSolicitacao() {
