@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CategoriaService } from './pages/shared/categoria.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { EntradaService } from './pages/entradas/shared/entrada.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CategoriaService],
+  providers: [CategoriaService, EntradaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

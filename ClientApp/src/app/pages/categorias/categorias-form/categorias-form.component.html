@@ -31,6 +31,12 @@
       <div class="form-group col-md-4">
         <label for="nome">Nome</label>
         <input type="text" class="form-control" id="nome" formControlName="nome">
+
+        <div class="text-danger" *ngIf="dadosForm.get('nome').invalid && dadosForm.get('nome').touched">
+          <div *ngIf="dadosForm.get('nome').errors.required">Campo Obrigatório!</div>
+          <div *ngIf="dadosForm.get('nome').errors.minlength">O campo deve possuir no minimo 3 digitos!</div>
+        </div>
+
       </div>
 
       <div class="form-group col-md-6">
@@ -39,8 +45,15 @@
         </div>
     </div>
   </div>
+
+  <div *ngIf="erroServidor" class="alert alert-danger mt-4">
+    <strong>Erro no servidor: </strong>
+    <ul>
+      <li *ngFor="let error of erroServidor">{{ error }}</li>
+    </ul>
+  </div>
   
-  <button class="btn btn-primary btn-lg float-right mt-3">
+  <button [disabled]="dadosForm.invalid || formEnviado" class="btn btn-primary btn-lg float-right mt-3">
     Salvar Categoria
   </button>
 </form>

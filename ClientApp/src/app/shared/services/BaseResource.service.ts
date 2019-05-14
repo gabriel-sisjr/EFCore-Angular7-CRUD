@@ -1,6 +1,6 @@
 import { BaseResourceModel } from '../models/BaseResource.model';
 import { Observable, throwError } from 'rxjs';
-import { Injector } from '@angular/core';
+import { Injector, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 
@@ -8,10 +8,12 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
     // Variavel a ser injetada
     protected http: HttpClient;
+    protected obj: T;
 
-    constructor(protected apiPath: string, protected injetor: Injector) {
+    constructor(protected apiPath: string, protected injetor: Injector, private tipo: new() => T) {
         // Injetando a instancia do HTTPClient presente, a variavel
         this.http = injetor.get(HttpClient);
+        //this.obj = injetor.get(typeof(T));
     }
     obterTodos(): Observable<T[]> {
         return this.http.get(this.apiPath).pipe(
@@ -59,11 +61,11 @@ export abstract class BaseResourceService<T extends BaseResourceModel> {
 
     protected ObjetosToJson(jsonData: any[]): T[] {
         const objetos: T[] = [];
-        jsonData.forEach(element => objetos.push(element as T));
+        jsonData.forEach(element => objetos.push(Object.assign(this.tipo, element)));
         return objetos;
     }
 
     protected ObjetoToJson(jsonData: any): T {
-        return jsonData as T;
+        return Object.assign(this.tipo, jsonData);
     }
 }

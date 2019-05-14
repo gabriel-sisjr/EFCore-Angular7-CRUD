@@ -6,6 +6,6 @@ import { API_PATH_CATEGORIAS } from 'src/app/shared/apiPath';
 @Injectable()
 export class CategoriaService extends BaseResourceService<Categoria> {
     constructor(protected injetor: Injector) {
-        super(API_PATH_CATEGORIAS, injetor);
+        super(API_PATH_CATEGORIAS, injetor, Categoria);
     }
 }

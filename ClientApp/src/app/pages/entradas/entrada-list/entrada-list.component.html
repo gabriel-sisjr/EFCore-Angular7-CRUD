@@ -1,0 +1,56 @@
+<nav class="mb-5">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+      <li class="breadcrumb-item active">Entradas</li>
+    </ol>
+  </nav>
+  
+  <div class="row mb-4">
+    <div class="cold-md">
+      <h1 class="h2 border-left pl-2">
+        Entradas
+      </h1>
+    </div>
+    <div class="col-md">
+      <a routerLink="new" class="btn btn-success float-right">+ Nova Entrada</a>
+    </div>
+  </div>
+  
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-primary text-light">
+        <th>Categoria</th>
+        <th>Tipo</th>
+        <th>Data</th>
+        <th class="text-right">Valor</th>
+        <th>Pago</th>
+        <th>Categoria</th>
+        <th class="text-center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of entradas">
+        <td>
+          <strong>{{ e.nome }}</strong><br>
+          <small>{{ e.descricao }}</small>
+        </td>
+        <td>
+          <strong [class.text-success]="e.tipo == 'revenue'" [class.text-danger]="e.tipo == 'expense'">
+              {{ e.getTipoEntrada() }}
+          </strong>
+        </td>
+        <td>{{ e.data }}</td>
+        <td class="text-right">{{ e.valor }}
+            <br>
+            <span class="badge badge-light">Pago</span>
+        </td>
+        
+        <td>{{ e.getTextoPago() }}</td>
+        <td>{{ e.categoria.nome }}</td>
+        <td class="text-center">
+          <a [routerLink]="[e.id, 'edit']" class="btn btn-outline-info btn-sm mr-1">Editar</a>
+          <button (click)="deletarEntrada(e)" class="btn btn-outline-danger btn-sm">Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
